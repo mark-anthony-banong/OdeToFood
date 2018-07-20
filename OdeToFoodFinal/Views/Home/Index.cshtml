@@ -1,0 +1,32 @@
+﻿@*to use the pageList package, add pageList namespace in Web.config*@
+@model IPagedList<RestaurantListViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<form id="searchRestaurant" method="get" action="@Url.Action("Index")"
+       data-otf-ajax="true" data-otf-target="#restaurantList">
+      @**call the autocomplete action*@
+    <input type="search" name="searchTerm"  data-otf-autocomplete="@Url.Action("Autocomplete")"/>
+    <input type="submit"   value="Search By Name" />
+</form>
+
+@*
+    ajax begin form will make asynchronous request to the server,
+    html beging form will make synchronous request to the server that re-draws the entire screen
+    ajax begin form redraws portion of the screen, using ajax option
+*@
+
+@*@using (Ajax.BeginForm(
+          new AjaxOptions
+             {
+                 HttpMethod = "get",
+                 InsertionMode = InsertionMode.Replace,
+                 UpdateTargetId = "restaurantList"
+             }))
+    {
+        <input type="search" name="searchTerm" />
+        <input type="submit" value="Search By name" />
+    }*@
+
+@Html.Partial("_Restaurants", Model );
